@@ -15,5 +15,5 @@
   <li>Wind Direction</li>
   <li>Wind Speed</li>
 </ol>
-<p>This model was deployed on <a href="https://render.com" target="_blank">Render</a>.</p>
-<p>You can access the deployed model here: <a href="https://rain-prediction-ognt.onrender.com" target="_blank">Deployed Model</a>.</p>
+<p>This model was deployed on <a href="https://render.com">Render</a>.</p>
+<p>You can access the deployed model here: <a href="https://rain-prediction-ognt.onrender.com">Deployed Model</a>.</p>
