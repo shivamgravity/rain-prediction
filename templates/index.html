@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Prediction</title>
+    <style>
+        html {
+            height: 100vh;
+            overflow: scroll;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #f9fbe7);
+            display: block;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            box-sizing: border-box;
+            padding-top: 60px;
+            padding-bottom: auto;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #00796b;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004d40;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0f7fa;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Enter Weather Features</h2>
+        <form id="weather-form">
+            <label>Day from 1 Jan:</label>
+            <input type="number" name="Day from 1 Jan" required>
+
+            <label>Pressure:</label>
+            <input type="number" name="Pressure" step="0.1" required>
+
+            <label>Maximum Temperature:</label>
+            <input type="number" name="Maximum Temperature" step="0.1" required>
+
+            <label>Temperature:</label>
+            <input type="number" name="Temperature" step="0.1" required>
+
+            <label>Minimum Temperature:</label>
+            <input type="number" name="Minimum Temperature" step="0.1" required>
+
+            <label>Dew Point:</label>
+            <input type="number" name="Dew Point" step="0.1" required>
+
+            <label>Humidity:</label>
+            <input type="number" name="Humidity" step="0.1" required>
+
+            <label>Cloud:</label>
+            <input type="number" name="Cloud" step="0.1" required>
+
+            <label>Sunshine:</label>
+            <input type="number" name="Sunshine" step="0.1" required>
+
+            <label>Wind Direction:</label>
+            <input type="number" name="Wind Direction" step="0.1" required>
+
+            <label>Wind Speed:</label>
+            <input type="number" name="Wind Speed" step="0.1" required>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        <!-- The result will be displayed here -->
+        <div class="result" id="result">
+            <p><strong>Prediction Result:</strong> <span id="prediction"></span></p>
+        </div>
+    </div>
+    <br/><br/><br/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // When the form is submitted
+            $("#weather-form").on("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                var formData = $(this).serialize(); // Serialize form data
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/predict", // Flask route for prediction
+                    data: formData,
+                    success: function(response) {
+                        // Display the prediction result
+                        $("#prediction").text(response.prediction);
+                        $("#result").show(); // Show the result div
+                    },
+                    error: function() {
+                        alert("An error occurred. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
